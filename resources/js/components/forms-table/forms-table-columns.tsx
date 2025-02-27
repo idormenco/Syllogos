@@ -5,9 +5,9 @@ import type { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import { Button } from '@/components/ui/button';
-import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
+import { Link } from '@inertiajs/react';
 import { Ellipsis } from 'lucide-react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 export function getColumns(): ColumnDef<FormModel>[] {
     return [
@@ -51,12 +51,12 @@ export function getColumns(): ColumnDef<FormModel>[] {
         },
 
         {
-            accessorKey: 'status',
-            header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+            accessorKey: 'numberOfQuestions',
+            header: ({ column }) => <DataTableColumnHeader column={column} title="Number of questions" />,
             cell: ({ row }) => {
                 return (
                     <div className="flex w-[6.25rem] items-center">
-                        <span className="capitalize">{row.original.status}</span>
+                        <span className="capitalize">{row.original.questions.length}</span>
                     </div>
                 );
             },
@@ -68,6 +68,8 @@ export function getColumns(): ColumnDef<FormModel>[] {
         {
             id: 'actions',
             cell: function Cell({ row }) {
+                const formId = row.original.id;
+
                 return (
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -76,9 +78,19 @@ export function getColumns(): ColumnDef<FormModel>[] {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-40">
-                            <DropdownMenuItem onSelect={() => console.log('edit', row.original.id)}>Edit</DropdownMenuItem>
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem asChild>
+                                    <Link className="block w-full" href={`/forms/${formId}`} as="button" prefetch>
+                                        View
+                                    </Link>
+                                </DropdownMenuItem>
 
-                            <DropdownMenuItem onSelect={() => console.log('view', row.original.id)}>View</DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <Link className="block w-full" href={`/forms/${formId}/edit`} as="button" prefetch>
+                                        Edit
+                                    </Link>
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 );

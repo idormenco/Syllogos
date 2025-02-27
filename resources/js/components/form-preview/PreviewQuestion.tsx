@@ -144,7 +144,7 @@ function PreviewQuestion({ questionIndex, activeQuestionId, setActiveQuestionId 
                 />
               )}
 
-              {question?.questionType === QuestionType.NumberQuestionType && (
+              {question?.questionType === QuestionType.NumericQuestionType && (
                 <PreviewNumberQuestion
                   questionId={question.questionId}
                   text={question.text[languageCode]}
@@ -175,7 +175,7 @@ function PreviewQuestion({ questionIndex, activeQuestionId, setActiveQuestionId 
                 />
               )}
 
-              {question?.questionType === QuestionType.MultiSelectQuestionType && (
+              {question?.questionType === QuestionType.MultipleSelectionQuestion && (
                 <PreviewMultiSelectQuestion
                   questionId={question.questionId}
                   text={question.text[languageCode]}
@@ -191,7 +191,7 @@ function PreviewQuestion({ questionIndex, activeQuestionId, setActiveQuestionId 
                 />
               )}
 
-              {question?.questionType === QuestionType.SingleSelectQuestionType && (
+              {question?.questionType === QuestionType.SingleSelectionQuestion && (
                 <PreviewSingleSelectQuestion
                   questionId={question.questionId}
                   text={question.text[languageCode]}

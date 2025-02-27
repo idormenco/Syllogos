@@ -11,19 +11,20 @@ import { FC, useEffect, useState } from 'react';
 
 import FormQuestionsEditor from '@/components/form-editor/FormQuestionsEditor';
 import { Button } from '@/components/ui/button';
-import { isDateQuestion, isMultiSelectQuestion, isNumberQuestion, isRatingQuestion, isSingleSelectQuestion, isTextQuestion } from '@/guards/forms';
+import { isDateQuestion, isMultipleSelectionQuestion, isNumberQuestion, isRatingQuestion, isSingleSelectionQuestion, isTextQuestion } from '@/guards/forms';
 import { FormModel, QuestionType, ZTranslatedString } from '@/types';
 import {
     EditDateQuestionType,
-    EditMultiSelectQuestionType,
+    EditMultipleSelectionQuestionType,
     EditNumberQuestionType,
     EditRatingQuestionType,
-    EditSingleSelectQuestionType,
+    EditSingleSelectionQuestionType,
     EditTextQuestionType,
     FormType,
     ZEditQuestionType,
 } from '@/types/form';
 import EditFormDetails from './FormDetailEditor';
+import { router } from '@inertiajs/react';
 
 export const ZEditFormType = z
     .object({
@@ -70,7 +71,7 @@ export const ZEditFormType = z
                 });
             }
 
-            if (question.questionType === QuestionType.NumberQuestionType || question.questionType === QuestionType.TextQuestionType) {
+            if (question.questionType === QuestionType.NumericQuestionType || question.questionType === QuestionType.TextQuestionType) {
                 if (
                     isNotNilOrWhitespace(question.inputPlaceholder[question.defaultLanguage]) &&
                     isNilOrWhitespace(question.inputPlaceholder[question.languageCode])
@@ -107,7 +108,7 @@ export const ZEditFormType = z
                 }
             }
 
-            if (question.questionType === QuestionType.SingleSelectQuestionType || question.questionType === QuestionType.MultiSelectQuestionType) {
+            if (question.questionType === QuestionType.SingleSelectionQuestion || question.questionType === QuestionType.MultipleSelectionQuestion) {
                 question.options.forEach((option, optionIndex) => {
                     if (isNilOrWhitespace(option.text[question.languageCode])) {
                         ctx.addIssue({
@@ -174,16 +175,16 @@ export const ZEditFormType = z
 export type EditFormType = z.infer<typeof ZEditFormType>;
 
 interface FormEditorProps {
-    formData?: FormModel;
-    onSaveForm: (formData: EditFormType, shouldNavigateAwayAfterSubmit: boolean) => void;
+    formData: FormModel;
 }
 
-const FormWizard: FC<FormEditorProps> = ({ formData, onSaveForm }) => {
+const FormWizard: FC<FormEditorProps> = ({ formData }) => {
     const [navigateAwayAfterSave, setNavigateAwayAfterSave] = useState(false);
-    const editQuestions = formData?.questions.map((question) => {
+
+    const editQuestions = formData.questions.map((question) => {
         if (isNumberQuestion(question)) {
             const numberQuestion: EditNumberQuestionType = {
-                questionType: QuestionType.NumberQuestionType,
+                questionType: QuestionType.NumericQuestionType,
                 questionId: question.id,
                 text: ensureTranslatedStringCorrectness(question.text, formData.availableLanguages),
                 helptext: ensureTranslatedStringCorrectness(question.helptext, formData.availableLanguages),
@@ -268,9 +269,9 @@ const FormWizard: FC<FormEditorProps> = ({ formData, onSaveForm }) => {
             return ratingQuestion;
         }
 
-        if (isSingleSelectQuestion(question)) {
-            const singleSelectQuestion: EditSingleSelectQuestionType = {
-                questionType: QuestionType.SingleSelectQuestionType,
+        if (isSingleSelectionQuestion(question)) {
+            const singleSelectQuestion: EditSingleSelectionQuestionType = {
+                questionType: QuestionType.SingleSelectionQuestion,
                 questionId: question.id,
                 text: ensureTranslatedStringCorrectness(question.text, formData.availableLanguages),
                 helptext: ensureTranslatedStringCorrectness(question.helptext, formData.availableLanguages),
@@ -296,9 +297,9 @@ const FormWizard: FC<FormEditorProps> = ({ formData, onSaveForm }) => {
             return singleSelectQuestion;
         }
 
-        if (isMultiSelectQuestion(question)) {
-            const multiSelectQuestion: EditMultiSelectQuestionType = {
-                questionType: QuestionType.MultiSelectQuestionType,
+        if (isMultipleSelectionQuestion(question)) {
+            const multiSelectQuestion: EditMultipleSelectionQuestionType = {
+                questionType: QuestionType.MultipleSelectionQuestion,
                 questionId: question.id,
                 text: ensureTranslatedStringCorrectness(question.text, formData.availableLanguages),
                 helptext: ensureTranslatedStringCorrectness(question.helptext, formData.availableLanguages),
@@ -353,10 +354,27 @@ const FormWizard: FC<FormEditorProps> = ({ formData, onSaveForm }) => {
         }
     }, [form, form.formState.isSubmitSuccessful, form.reset]);
 
+    async function onSubmit(data: EditFormType, navigateAwayAfterSave: boolean) {
+        console.log(navigateAwayAfterSave);
+        router.put(`/forms/${formData.id}`, data, {
+            onSuccess: ()=>{
+                router.visit('/forms');
+            },
+            onError: (errors) => {
+                // Map Inertia validation errors to RHF
+                console.log(errors)
+                Object.entries(errors).forEach(([key, message]) => {
+                    form.setError(key as keyof EditFormType, { type: 'manual', message });
+                });
+            },
+        });
+    }
+
     return (
         <div className="p-2">
+            <pre>{JSON.stringify(form.formState.errors, null, 2)}</pre>
             <Form {...form}>
-                <form className="flex flex-1 flex-col" onSubmit={form.handleSubmit((data) => onSaveForm(data, navigateAwayAfterSave))}>
+                <form className="flex flex-1 flex-col" onSubmit={form.handleSubmit((data) => onSubmit(data, navigateAwayAfterSave))}>
                     <Tabs className="flex flex-1 flex-col" defaultValue="form-details">
                         <TabsList className="mb-4 grid w-[400px] grid-cols-2 bg-gray-200">
                             <TabsTrigger

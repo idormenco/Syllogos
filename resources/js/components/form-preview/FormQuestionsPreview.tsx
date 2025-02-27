@@ -3,10 +3,10 @@ import { FC } from 'react';
 
 import {
   isDateQuestion,
-  isMultiSelectQuestion,
+  isMultipleSelectionQuestion,
   isNumberQuestion,
   isRatingQuestion,
-  isSingleSelectQuestion,
+  isSingleSelectionQuestion,
   isTextQuestion,
 } from '@/guards/forms';
 import PreviewDateQuestion from '@/components/form-preview/PreviewDateQuestion';
@@ -83,7 +83,7 @@ export const FormQuestionsPreview: FC<FormQuestionsPreviewProps> = ({
             />
           )}
 
-          {isMultiSelectQuestion(question) && (
+          {isMultipleSelectionQuestion(question) && (
             <PreviewMultiSelectQuestion
               questionId={question.id}
               text={question.text[languageCode]}
@@ -99,7 +99,7 @@ export const FormQuestionsPreview: FC<FormQuestionsPreviewProps> = ({
             />
           )}
 
-          {isSingleSelectQuestion(question) && (
+          {isSingleSelectionQuestion(question) && (
             <PreviewSingleSelectQuestion
               questionId={question.id}
               text={question.text[languageCode]}

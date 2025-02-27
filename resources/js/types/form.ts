@@ -1,11 +1,11 @@
 import {
     DateQuestion,
-    MultiSelectQuestion,
+    MultipleSelectionQuestion,
     NumberQuestion,
     QuestionType,
     RatingQuestion,
     RatingScaleType,
-    SingleSelectQuestion,
+    SingleSelectionQuestion,
     TextQuestion,
     ZDisplayLogicCondition,
     ZTranslatedString,
@@ -59,7 +59,7 @@ const ZEditDateQuestionType = ZBaseEditQuestionType.extend({
 });
 
 const ZEditNumberQuestionType = ZBaseEditQuestionType.extend({
-    questionType: z.literal(QuestionType.NumberQuestionType),
+    questionType: z.literal(QuestionType.NumericQuestionType),
     inputPlaceholder: ZTranslatedString,
 });
 
@@ -75,13 +75,13 @@ const ZEditSelectOptionType = z.object({
     isFreeText: z.boolean(),
 });
 
-const ZEditMultiSelectQuestionType = ZBaseEditQuestionType.extend({
-    questionType: z.literal(QuestionType.MultiSelectQuestionType),
+const ZEditMultipleSelectionQuestion = ZBaseEditQuestionType.extend({
+    questionType: z.literal(QuestionType.MultipleSelectionQuestion),
     options: z.array(ZEditSelectOptionType).min(1),
 });
 
-const ZEditSingleSelectQuestionType = ZBaseEditQuestionType.extend({
-    questionType: z.literal(QuestionType.SingleSelectQuestionType),
+const ZEditSingleSelectionQuestionType = ZBaseEditQuestionType.extend({
+    questionType: z.literal(QuestionType.SingleSelectionQuestion),
     options: z.array(ZEditSelectOptionType).min(1),
 });
 
@@ -90,13 +90,13 @@ export const ZEditQuestionType = z.discriminatedUnion('questionType', [
     ZEditNumberQuestionType,
     ZEditDateQuestionType,
     ZEditRatingQuestionType,
-    ZEditSingleSelectQuestionType,
-    ZEditMultiSelectQuestionType,
+    ZEditSingleSelectionQuestionType,
+    ZEditMultipleSelectionQuestion,
 ]);
 
 export type EditSelectOptionType = z.infer<typeof ZEditSelectOptionType>;
-export type EditMultiSelectQuestionType = z.infer<typeof ZEditMultiSelectQuestionType>;
-export type EditSingleSelectQuestionType = z.infer<typeof ZEditSingleSelectQuestionType>;
+export type EditMultipleSelectionQuestionType = z.infer<typeof ZEditMultipleSelectionQuestion>;
+export type EditSingleSelectionQuestionType = z.infer<typeof ZEditSingleSelectionQuestionType>;
 export type EditTextQuestionType = z.infer<typeof ZEditTextQuestionType>;
 export type EditNumberQuestionType = z.infer<typeof ZEditNumberQuestionType>;
 export type EditRatingQuestionType = z.infer<typeof ZEditRatingQuestionType>;
@@ -106,10 +106,10 @@ export type EditQuestionType = z.infer<typeof ZEditQuestionType>;
 
 export const mapToQuestionRequest = (
     q: EditQuestionType
-): NumberQuestion | TextQuestion | RatingQuestion | DateQuestion | SingleSelectQuestion | MultiSelectQuestion => {
-    if (q.questionType === QuestionType.NumberQuestionType) {
+): NumberQuestion | TextQuestion | RatingQuestion | DateQuestion | SingleSelectionQuestion | MultipleSelectionQuestion => {
+    if (q.questionType === QuestionType.NumericQuestionType) {
         const numberQuestion: NumberQuestion = {
-            questionType: QuestionType.NumberQuestionType,
+            questionType: QuestionType.NumericQuestionType,
             code: q.code,
             id: q.questionId,
             text: q.text,
@@ -172,9 +172,9 @@ export const mapToQuestionRequest = (
         return dateQuestion;
     }
 
-    if (q.questionType === QuestionType.SingleSelectQuestionType) {
-        const singleSelectQuestion: SingleSelectQuestion = {
-            questionType: QuestionType.SingleSelectQuestionType,
+    if (q.questionType === QuestionType.SingleSelectionQuestion) {
+        const singleSelectionQuestion: SingleSelectionQuestion = {
+            questionType: QuestionType.SingleSelectionQuestion,
             code: q.code,
             id: q.questionId,
             text: q.text,
@@ -190,12 +190,12 @@ export const mapToQuestionRequest = (
                 : undefined,
         };
 
-        return singleSelectQuestion;
+        return singleSelectionQuestion;
     }
 
-    if (q.questionType === QuestionType.MultiSelectQuestionType) {
-        const multiSelectQuestion: MultiSelectQuestion = {
-            questionType: QuestionType.MultiSelectQuestionType,
+    if (q.questionType === QuestionType.MultipleSelectionQuestion) {
+        const multipleSelectionQuestion: MultipleSelectionQuestion = {
+            questionType: QuestionType.MultipleSelectionQuestion,
             code: q.code,
             id: q.questionId,
             text: q.text,
@@ -211,7 +211,7 @@ export const mapToQuestionRequest = (
                 : undefined,
         };
 
-        return multiSelectQuestion;
+        return multipleSelectionQuestion;
     }
 
     throw new Error('unknown question type');

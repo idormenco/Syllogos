@@ -95,11 +95,11 @@ export enum FormStatus {
 
 export enum QuestionType {
     TextQuestionType = "textQuestion",
-    NumberQuestionType = "numberQuestion",
+    NumericQuestionType = "numericQuestion",
     DateQuestionType = "dateQuestion",
-    SingleSelectQuestionType = "singleSelectQuestion",
-    MultiSelectQuestionType = "multiSelectQuestion",
-    RatingQuestionType = "ratingQuestion",
+    SingleSelectionQuestion = 'singleSelectionQuestion',
+    MultipleSelectionQuestion = 'multipleSelectionQuestion',
+    RatingQuestionType = "ratingQuestion"
 }
 
 export interface DisplayLogic {
@@ -126,7 +126,7 @@ export interface TextQuestion extends BaseQuestion {
     inputPlaceholder?: TranslatedString;
 }
 export interface NumberQuestion extends BaseQuestion {
-    questionType: QuestionType.NumberQuestionType;
+    questionType: QuestionType.NumericQuestionType;
     inputPlaceholder?: TranslatedString;
 }
 
@@ -155,12 +155,12 @@ export interface SelectOption {
     isFreeText: boolean;
 }
 
-export interface SingleSelectQuestion extends BaseQuestion {
-    questionType: QuestionType.SingleSelectQuestionType;
+export interface SingleSelectionQuestion extends BaseQuestion {
+    questionType: QuestionType.SingleSelectionQuestion;
     options: SelectOption[];
 }
-export interface MultiSelectQuestion extends BaseQuestion {
-    questionType: QuestionType.MultiSelectQuestionType;
+export interface MultipleSelectionQuestion extends BaseQuestion {
+    questionType: QuestionType.MultipleSelectionQuestion;
     options: SelectOption[];
 }
 

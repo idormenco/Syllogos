@@ -55,12 +55,8 @@ class FormController extends Controller
         ]);
     }
 
-
     public function update(Request $request, Form $form)
     {
         $form->update($request->all());
-
-        return redirect()->route('forms.index');
     }
-
 }

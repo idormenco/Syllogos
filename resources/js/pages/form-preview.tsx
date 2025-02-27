@@ -7,9 +7,9 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     isDateQuestion,
-    isMultiSelectQuestion,
+    isMultipleSelectionQuestion,
     isNumberQuestion,
-    isRatingQuestion, isSingleSelectQuestion,
+    isRatingQuestion, isSingleSelectionQuestion,
     isTextQuestion
 } from '@/guards/forms';
 import PreviewTextQuestion from '@/components/form-preview/PreviewTextQuestion';
@@ -151,7 +151,7 @@ export default function FormEditor({
                                                     />
                                                 )}
 
-                                                {isMultiSelectQuestion(question) && (
+                                                {isMultipleSelectionQuestion(question) && (
                                                     <PreviewMultiSelectQuestion
                                                         questionId={question.id}
                                                         text={question.text[form.defaultLanguage]}
@@ -167,7 +167,7 @@ export default function FormEditor({
                                                     />
                                                 )}
 
-                                                {isSingleSelectQuestion(question) && (
+                                                {isSingleSelectionQuestion(question) && (
                                                     <PreviewSingleSelectQuestion
                                                         questionId={question.id}
                                                         text={question.text[form.defaultLanguage]}

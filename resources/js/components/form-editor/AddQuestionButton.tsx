@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { EditMultiSelectQuestionType, EditQuestionType, EditSingleSelectQuestionType } from '@/types/form';
+import { EditSingleSelectionQuestionType, EditQuestionType, EditMultipleSelectionQuestionType } from '@/types/form';
 
 export type QuestionTypeConfig = {
   type: QuestionType;
@@ -40,12 +40,12 @@ const questionTypes: QuestionTypeConfig[] = [
     },
   },
   {
-    type: QuestionType.NumberQuestionType,
-    icon: questionsIconMapping[QuestionType.NumberQuestionType],
+    type: QuestionType.NumericQuestionType,
+    icon: questionsIconMapping[QuestionType.NumericQuestionType],
     label: 'Number question',
     create: (languageCode: string, availableLanguages: string[]) => {
       const newNumberQuestion: EditQuestionType = {
-        questionType: QuestionType.NumberQuestionType,
+        questionType: QuestionType.NumericQuestionType,
         questionId: uuidv4(),
         text: newTranslatedString(availableLanguages, languageCode, ''),
         helptext: newTranslatedString(availableLanguages, languageCode, ''),
@@ -101,12 +101,12 @@ const questionTypes: QuestionTypeConfig[] = [
     },
   },
   {
-    type: QuestionType.SingleSelectQuestionType,
-    icon: questionsIconMapping[QuestionType.SingleSelectQuestionType],
-    label: 'questionEditor.questionType.singleSelectQuestion',
+    type: QuestionType.SingleSelectionQuestion,
+    icon: questionsIconMapping[QuestionType.SingleSelectionQuestion],
+    label: 'Single select question',
     create: (languageCode: string, availableLanguages: string[]) => {
-      const newSingleSelectQuestion: EditSingleSelectQuestionType = {
-        questionType: QuestionType.SingleSelectQuestionType,
+      const newSingleSelectQuestion: EditSingleSelectionQuestionType = {
+        questionType: QuestionType.SingleSelectionQuestion,
         questionId: uuidv4(),
         text: newTranslatedString(availableLanguages, languageCode, ''),
         helptext: newTranslatedString(availableLanguages, languageCode, ''),
@@ -134,12 +134,12 @@ const questionTypes: QuestionTypeConfig[] = [
     },
   },
   {
-    type: QuestionType.MultiSelectQuestionType,
-    icon: questionsIconMapping[QuestionType.MultiSelectQuestionType],
+    type: QuestionType.MultipleSelectionQuestion,
+    icon: questionsIconMapping[QuestionType.MultipleSelectionQuestion],
     label: 'Multi select question',
     create: (languageCode: string, availableLanguages: string[]) => {
-      const newMultiSelectQuestion: EditMultiSelectQuestionType = {
-        questionType: QuestionType.MultiSelectQuestionType,
+      const newMultiSelectQuestion: EditMultipleSelectionQuestionType = {
+        questionType: QuestionType.MultipleSelectionQuestion,
         questionId: uuidv4(),
         text: newTranslatedString(availableLanguages, languageCode, ''),
         helptext: newTranslatedString(availableLanguages, languageCode, ''),

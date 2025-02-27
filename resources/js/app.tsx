@@ -1,12 +1,12 @@
 import '../css/app.css';
 
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { NuqsAdapter } from '@/providers/nuqs-inertia-adapter';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { route as routeFn } from 'ziggy-js';
 import { initializeTheme } from './hooks/use-appearance';
-import { NuqsAdapter } from '@/providers/nuqs-inertia-adapter';
-import React from 'react';
 
 declare global {
     const route: typeof routeFn;
@@ -20,7 +20,13 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(<NuqsAdapter><App {...props} /></NuqsAdapter>);
+        root.render(
+            <TooltipProvider>
+                <NuqsAdapter>
+                    <App {...props} />
+                </NuqsAdapter>
+            </TooltipProvider>,
+        );
     },
     progress: {
         color: '#4B5563',

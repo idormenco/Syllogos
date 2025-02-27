@@ -47,13 +47,13 @@ export const isNotNilOrWhitespace = (input?: string | null) => (input?.trim()?.l
 
 export const isNilOrWhitespace = (input?: string | null) => (input?.trim()?.length || 0) === 0;
 
-export const questionsIconMapping = {
+export const questionsIconMapping : Record<QuestionType, React.ElementType> = {
     [QuestionType.TextQuestionType]: Bars3BottomLeftIcon,
-    [QuestionType.NumberQuestionType]: CalculatorIcon,
+    [QuestionType.NumericQuestionType]: CalculatorIcon,
     [QuestionType.DateQuestionType]: CalendarIcon,
     [QuestionType.RatingQuestionType]: StarIcon,
-    [QuestionType.SingleSelectQuestionType]: CheckCircleIcon,
-    [QuestionType.MultiSelectQuestionType]: ListBulletIcon,
+    [QuestionType.SingleSelectionQuestion]: CheckCircleIcon,
+    [QuestionType.MultipleSelectionQuestion]: ListBulletIcon,
 };
 
 /**

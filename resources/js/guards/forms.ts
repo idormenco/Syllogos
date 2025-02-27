@@ -10,12 +10,12 @@ import {
   type BaseQuestion,
   type DateAnswer,
   type MultiSelectAnswer,
-  type MultiSelectQuestion,
+  type MultipleSelectionQuestion,
   type NumberAnswer,
   type RatingAnswer,
   type RatingQuestion,
   type SingleSelectAnswer,
-  type SingleSelectQuestion,
+  type SingleSelectionQuestion,
   type TextAnswer,
   type TextQuestion,
   type NumberQuestion,
@@ -34,8 +34,8 @@ export function isMultiSelectAnswer(answer: BaseAnswer): answer is MultiSelectAn
   return MultiSelectAnswerSchema.safeParse(answer).success;
 }
 
-export function isMultiSelectQuestion(question: BaseQuestion): question is MultiSelectQuestion {
-  return question.questionType === QuestionType.MultiSelectQuestionType;
+export function isMultipleSelectionQuestion(question: BaseQuestion): question is MultipleSelectionQuestion {
+  return question.questionType === QuestionType.MultipleSelectionQuestion;
 }
 
 export function isNumberAnswer(answer: BaseAnswer): answer is NumberAnswer {
@@ -43,7 +43,7 @@ export function isNumberAnswer(answer: BaseAnswer): answer is NumberAnswer {
 }
 
 export function isNumberQuestion(question: BaseQuestion): question is NumberQuestion {
-  return question.questionType === QuestionType.NumberQuestionType;
+  return question.questionType === QuestionType.NumericQuestionType;
 }
 
 export function isRatingAnswer(answer: BaseAnswer): answer is RatingAnswer {
@@ -58,8 +58,8 @@ export function isSingleSelectAnswer(answer: BaseAnswer): answer is SingleSelect
   return SingleSelectAnswerSchema.safeParse(answer).success;
 }
 
-export function isSingleSelectQuestion(question: BaseQuestion): question is SingleSelectQuestion {
-  return question.questionType === QuestionType.SingleSelectQuestionType;
+export function isSingleSelectionQuestion(question: BaseQuestion): question is SingleSelectionQuestion {
+  return question.questionType === QuestionType.SingleSelectionQuestion;
 }
 
 export function isTextAnswer(answer: BaseAnswer): answer is TextAnswer {

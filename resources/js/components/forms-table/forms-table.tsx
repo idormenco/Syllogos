@@ -36,7 +36,6 @@ export function FormsTable({ forms, pageCount }: TasksTableProps) {
      * @prop {string} label - The label for the filter option.
      * @prop {string} value - The value for the filter option.
      * @prop {React.ReactNode} [icon] - An optional icon to display next to the label.
-     * @prop {boolean} [withCount] - An optional boolean to display the count of the filter option.
      */
     const filterFields: DataTableFilterField<FormModel>[] = [
         {
@@ -62,7 +61,7 @@ export function FormsTable({ forms, pageCount }: TasksTableProps) {
 
     return (
         <>
-            <DataTable table={table} onRowClick={({ id }) => router.visit(`/forms/${id}`)}></DataTable>
+            <DataTable table={table}></DataTable>
             {/*<UpdateTaskSheet open={rowAction?.type === 'update'} onOpenChange={() => setRowAction(null)} task={rowAction?.row.original ?? null} />*/}
             {/*<DeleteTasksDialog*/}
             {/*    open={rowAction?.type === 'delete'}*/}

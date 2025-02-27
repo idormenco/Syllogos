@@ -7,8 +7,8 @@ use App\Enums\RatingScale;
 
 class SelectOption
 {
-    private array $text;
-    private bool $isFreeTextOption;
+    public array $text;
+    public bool $isFreeTextOption;
 
     public function __construct(array $text, bool $isFreeTextOption)
     {

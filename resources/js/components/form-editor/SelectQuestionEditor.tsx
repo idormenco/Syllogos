@@ -131,7 +131,7 @@ function SelectQuestionEditor({ questionIndex }: SelectQuestionEditorProps) {
                           <div className='mt-2 mr-2 h-4 w-4'>
                             {option.isFreeText ? (
                               <PencilLine className='h-full w-full text-slate-700' />
-                            ) : questionType === QuestionType.SingleSelectQuestionType ? (
+                            ) : questionType === QuestionType.SingleSelectionQuestion ? (
                               <CheckCircle className='h-full w-full text-slate-700' />
                             ) : (
                               <CheckSquare className='h-full w-full text-slate-700' />
@@ -196,11 +196,11 @@ function SelectQuestionEditor({ questionIndex }: SelectQuestionEditorProps) {
             variant='outline'
             type='button'
             onClick={() =>
-              questionType === QuestionType.SingleSelectQuestionType
-                ? changeQuestionType(QuestionType.MultiSelectQuestionType)
-                : changeQuestionType(QuestionType.SingleSelectQuestionType)
+              questionType === QuestionType.SingleSelectionQuestion
+                ? changeQuestionType(QuestionType.MultipleSelectionQuestion)
+                : changeQuestionType(QuestionType.SingleSelectionQuestion)
             }>
-            {questionType === QuestionType.SingleSelectQuestionType
+            {questionType === QuestionType.SingleSelectionQuestion
               ? 'To Multi Select Question'
               : 'To Single Select Question'}
           </Button>
