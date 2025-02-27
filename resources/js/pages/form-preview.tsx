@@ -164,6 +164,7 @@ export default function FormEditor({
                                                             })) ?? []
                                                         }
                                                         code={question.code}
+                                                        key={question.id}
                                                     />
                                                 )}
 
@@ -180,6 +181,7 @@ export default function FormEditor({
                                                             })) ?? []
                                                         }
                                                         code={question.code}
+                                                        key={question.id}
                                                     />
                                                 )}
                                             </div>

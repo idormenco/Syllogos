@@ -372,7 +372,6 @@ const FormWizard: FC<FormEditorProps> = ({ formData }) => {
 
     return (
         <div className="p-2">
-            <pre>{JSON.stringify(form.formState.errors, null, 2)}</pre>
             <Form {...form}>
                 <form className="flex flex-1 flex-col" onSubmit={form.handleSubmit((data) => onSubmit(data, navigateAwayAfterSave))}>
                     <Tabs className="flex flex-1 flex-col" defaultValue="form-details">
