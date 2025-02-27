@@ -10,7 +10,7 @@ class NumericQuestion extends BaseQuestion
 
     public function __construct(string $code, array $text, array $helptext, array $placeholder)
     {
-        parent::__construct(QuestionType::TextQuestion, $code, $text, $helptext);
+        parent::__construct(QuestionType::NumericQuestion, $code, $text, $helptext);
         $this->placeholder = $placeholder;
     }
 

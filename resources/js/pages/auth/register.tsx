@@ -17,6 +17,7 @@ interface RegisterForm {
 }
 
 export default function Register() {
+    // @ts-ignore
     const { data, setData, post, processing, errors, reset } = useForm<RegisterForm>({
         name: '',
         email: '',

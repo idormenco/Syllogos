@@ -12,7 +12,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('forms', function (Blueprint $table): void {
-            $table->ulid(column: 'formId');
+            $table->ulid(column: 'id');
             $table->string(column: 'code', length: 32);
             $table->jsonb(column: 'name')->default('{}');
 

@@ -4,10 +4,10 @@ namespace App\Enums;
 
 enum QuestionType: string
 {
-    case TextQuestion = 'TextQuestion';
-    case NumericQuestion = 'NumericQuestion';
-    case DateQuestion = 'DateQuestion';
-    case SingleSelectionQuestion = 'SingleSelectionQuestion';
-    case MultipleSelectionQuestion = 'MultipleSelectionQuestion';
-    case RatingQuestion = 'RatingQuestion';
+    case TextQuestion = 'textQuestion';
+    case NumericQuestion = 'numericQuestion';
+    case DateQuestion = 'dateQuestion';
+    case SingleSelectionQuestion = 'singleSelectionQuestion';
+    case MultipleSelectionQuestion = 'multipleSelectionQuestion';
+    case RatingQuestion = 'ratingQuestion';
 }

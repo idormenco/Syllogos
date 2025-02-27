@@ -13,7 +13,6 @@ abstract class BaseQuestion
     public array $text;
     public array $helptext;
 
-
     protected $casts = [
         'text' => 'array',
         'helptext' => 'array',

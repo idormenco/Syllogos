@@ -14,19 +14,11 @@ class Form extends Model
     use HasUlids;
 
     /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'formId';
-
-    /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'forms';
-
 
     protected $fillable = ['code', 'status', 'name', 'defaultLanguage', 'availableLanguages', 'questions'];
 
@@ -43,15 +35,5 @@ class Form extends Model
             'name' => 'array',
             'availableLanguages' => 'array',
         ];
-    }
-
-    /**
-     * Get the columns that should receive a unique identifier.
-     *
-     * @return array<int, string>
-     */
-    public function uniqueIds(): array
-    {
-        return ['formId'];
     }
 }

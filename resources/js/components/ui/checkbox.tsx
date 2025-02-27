@@ -3,6 +3,25 @@ import { Check } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import { clsx } from 'clsx';
+
+export function CheckboxGroup({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+    return (
+        <div
+            data-slot="control"
+            {...props}
+            className={clsx(
+                className,
+
+                // Basic groups
+                'space-y-3',
+
+                // With descriptions
+                'has-[[data-slot=description]]:space-y-6 [&_[data-slot=label]]:has-[[data-slot=description]]:font-medium'
+            )}
+        />
+    )
+}
 
 const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>>(
     ({ className, ...props }, ref) => (

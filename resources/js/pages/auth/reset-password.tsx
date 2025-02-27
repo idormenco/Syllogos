@@ -21,6 +21,7 @@ interface ResetPasswordForm {
 }
 
 export default function ResetPassword({ token, email }: ResetPasswordProps) {
+    // @ts-ignore
     const { data, setData, post, processing, errors, reset } = useForm<ResetPasswordForm>({
         token: token,
         email: email,
